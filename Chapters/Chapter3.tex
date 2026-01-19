@@ -1,145 +1,58 @@
 % !Mode:: "TeX:UTF-8"
+%此为章节三模板
+%\chapter、\section、\subsection、\subsubsection分别对应一二三四级标题
+% file: Chapters/Chapter3.tex
 
-\chapter{表格示例}\label{ch:3}
-可使用excel绘制表格，然后粘贴到以下网站中生成 \LaTeX 表格代码，然后再在网站中进行详细调整
+\chapter{基于 ST-PatchTST 的空气质量预测模型构建}\label{ch:3}
 
-推荐网站如下：
+**写作目标**：这是论文的灵魂。要让别人觉得你的模型设计得有理有据，数学推导严谨。
 
-https://www.tablesgenerator.com/
+\section{问题定义与模型总体框架}
 
-https://www.latex-tables.com/
+\subsection{多元时间序列预测问题数学描述}
 
+定义输入张量 X∈RT×N×C（时间步×站点数×特征数），输出 Y。
 
-\section{普通三线表示例}
-普遍学者认为，微通道指的是水力直径在 $10\ \mathrm{\mu m}$ 到 $1000\ \mathrm{\mu m}$ 范围内的通道（也有观点认为是 $1\ \mathrm{\mu m}$ 到 $100\ \mathrm{\mu m}$）所构成的换热器。
-以下是较为常见的微通道尺寸分类，可以参见\cref{tab:division-of-microchannels}。
-\begin{table}[htbp]
-    \caption[微通道的划分]{微通道的划分\cite{LuSiHong_2021}}
-    \setlength{\tabcolsep}{14mm}{ % 因表格过窄，手动设置宽度为7mm
-        \begin{tabular}{lc}
-            \toprule
-            通道种类    & 水力直径$\mu m$   \\
-            \midrule
-            分子纳米通道  & $\le 0.1$     \\
-            过渡性纳米通道 & $0.1\sim 1$   \\
-            过渡性微通道  & $1\sim 10$    \\
-            微通道     & $10\sim 1000$ \\
-            常规通道    & $>1000$       \\
-            \bottomrule
-        \end{tabular}}
-    \label{tab:division-of-microchannels}
-\end{table}
+\subsection{ST-PatchTST 模型整体架构图}
 
-\begin{table}[htbp]
-    \centering
-    \caption{三线表示例(tabularray自定义环境)}
-    \begin{threetab}{
-        colspec = {cc}, 
-        column{1} = {4cm}, % 设置第一列宽度
-        column{2} = {5cm}, % 设置第二列宽度
-        }
-        表头1  & 表头2 \\
-        内容1  & 内容2 \\
-        内容3  & 内容4 \\
-    \end{threetab}
-\end{table}
+**[核心图表]** 画一张大图，展示数据流向：输入 -> 空间聚合 -> Patching -> Transformer Encoder -> 输出。
 
-\begin{table}[!htbp]
-    \caption[表格复杂定义示例]{复杂定义示例(提供脚注)}
-    \begin{threeparttable}
-        \begin{tabular}{*{3}{p{3.3cm}<{\centering}}}
-            \hline
-            方案 & 参数1 & 参数2\\ \hline
-            xxx et al.~\cite{Lau_2022} & $2n\times$SS & — \\ 
-            YYY~\cite{Lau_2022} & $n\times$SS$+5n\times$P & $n\times$BP \\
-            ZZZ~\cite{Lau_2022} & $2n\times$SS$+n\times$P & $n\times$BP$+n\times$SS \\
-            本章方案\textsuperscript{1} & $n\times$SS & $n\times$P \\ \hline
-        \end{tabular}
-        \begin{tablenotes}
-            \footnotesize
-            \item[1] 服务器发起的最后一个操作被视为聚合部分
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}
+\section{多站点空间特征聚合策略 (Spatial Feature Aggregation)}
+
+\subsection{空间关联结构的定义与筛选策略}
+
+**[写公式]** 给出皮尔逊相关系数（PCC）公式；说明筛选相关站点数据的方法；定义邻接矩阵 A 的生成规则（PCC>threshold 则连边）。说明这是一种“静态图”构建方式。
+
+\subsection{空间特征聚合模块设计 (Spatial Aggregation Module)}
+
+解释数据是如何通过这个邻接矩阵进行交互的。例如：使用了图卷积公式 H(l+1)=σ(D~−21A~D~−21H(l)W(l)) 或者简单的加权求和。
 
 
-\section{子表排版示例}
-\begin{table}[htb]
-    \centering
-    \begin{subtable}{0.45\textwidth}
-        \centering
-        \begin{threetab}{
-            colspec = {cc}, 
-            }
-            表头1  & 表头2 \\
-            内容1  & 内容2 \\
-            内容3  & 内容4 \\
-        \end{threetab}
-        \caption{子表1标题}
-    \end{subtable}
-    \quad
-    \begin{subtable}{0.45\textwidth}
-        \centering
-        \begin{threetab}{
-            colspec = {cc}, 
-            }
-            表头1  & 表头2 \\
-            内容1  & 内容2 \\
-            内容3  & 内容4 \\
-        \end{threetab}
-        \caption{子表2标题}
-    \end{subtable}
-    \caption{主表标题}
-\end{table}
+\section{基于 PatchTST 的时序特征提取}
 
-\section{跨页表格示例}
+\subsection{Patching 分块机制}
 
-\begin{longtable}{@{\extracolsep{\fill}}cccccc@{}}  \\ % @{\extracolsep{\fill}}cccccc@{}命令表格整体宽度为页面宽
-    \caption{RSM仿真实验规划表}
-    \label{tab:Experimental-Planning}  \\
-    \toprule
-    标准序 & 运行序 & $H_{rib}\ \mathrm{(mm)}$ & $H_{pf}\ \mathrm{(mm)}$ & $N_{pf}$ & $N_{ac}$ \\ \midrule
-    \endfirsthead
-    %
-    \multicolumn{6}{c}%
-    {{表 \thetable\ RSM仿真实验规划表 (续)}} \\
-    \toprule
-    标准序 & 运行序 & $H_{rib}\ \mathrm{(mm)}$ & $H_{pf}\ \mathrm{(mm)}$ & $N_{pf}$ & $N_{ac}$ \\ \midrule
-    \endhead
-    %
-    \bottomrule
-    \endfoot
-    %
-    \endlastfoot
-    %
-    11  & 1   & 0.16            & 0.8            & 6        & 16       \\
-    13  & 2   & 0.16            & 0.16           & 22       & 16       \\
-    15  & 3   & 0.16            & 0.8            & 22       & 16       \\
-    12  & 4   & 0.8             & 0.8            & 6        & 16       \\
-    10  & 5   & 0.8             & 0.16           & 6        & 16       \\
-    2   & 6   & 0.8             & 0.16           & 6        & 0        \\
-    19  & 7   & 0.48            & 0.48           & 14       & 8        \\
-    1   & 8   & 0.16            & 0.16           & 6        & 0        \\
-    20  & 9   & 0.48            & 0.48           & 14       & 8        \\
-    18  & 10  & 0.48            & 0.48           & 14       & 8        \\
-    8   & 11  & 0.8             & 0.8            & 22       & 0        \\
-    14  & 12  & 0.8             & 0.16           & 22       & 16       \\
-    6   & 13  & 0.8             & 0.16           & 22       & 0        \\
-    17  & 14  & 0.48            & 0.48           & 14       & 8        \\
-    7   & 15  & 0.16            & 0.8            & 22       & 0        \\
-    16  & 16  & 0.8             & 0.8            & 22       & 16       \\
-    4   & 17  & 0.8             & 0.8            & 6        & 0        \\
-    9   & 18  & 0.16            & 0.16           & 6        & 16       \\
-    5   & 19  & 0.16            & 0.16           & 22       & 0        \\
-    3   & 20  & 0.16            & 0.8            & 6        & 0        \\
-    25  & 21  & 0.48            & 0.48           & 6        & 8        \\
-    22  & 22  & 0.8             & 0.48           & 14       & 8        \\
-    23  & 23  & 0.48            & 0.16           & 14       & 8        \\
-    29  & 24  & 0.48            & 0.48           & 14       & 8        \\
-    28  & 25  & 0.48            & 0.48           & 14       & 16       \\
-    30  & 26  & 0.48            & 0.48           & 14       & 8        \\
-    26  & 27  & 0.48            & 0.48           & 22       & 8        \\
-    27  & 28  & 0.48            & 0.48           & 14       & 0        \\
-    21  & 29  & 0.16            & 0.48           & 14       & 8        \\
-    24  & 30  & 0.48            & 0.8            & 14       & 8        \\ \bottomrule
-\end{longtable}
+画图解释怎么把长序列切成小块（Patch），说明这样做的两个好处：降低计算量、提取局部语义。
+
+
+\subsection{通道独立 (Channel Independence) 的应用}
+
+解释为什么把每个站点/变量看作独立的序列输入到 Transformer 中（为了保持鲁棒性，防止噪声干扰）。
+
+\subsection{Transformer 编码器结构}
+
+详细描述 Encoder Layer 内部：多头注意力 + 前馈神经网络 + 残差连接 + BatchNorm 。
+
+\section{预测输出模块}
+
+Flatten 层 -> Linear 线性层映射到未来时间步。
+
+\section{损失函数与优化策略}
+
+Loss: MSE 或 MAE 公式。
+
+Optimizer: AdamW 优化器。
+
+Strategy: Early Stopping（早停机制）。
+
+\subsection{本章小结}
