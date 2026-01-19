@@ -1,0 +1,121 @@
+%
+%  =======================================================================
+%  ····Y88b···d88P················888b·····d888·d8b·······················
+%  ·····Y88b·d88P·················8888b···d8888·Y8P·······················
+%  ······Y88o88P··················88888b·d88888···························
+%  ·······Y888P··8888b···88888b···888Y88888P888·888·88888b·····d88b·······
+%  ········888······"88b·888·"88b·888·Y888P·888·888·888·"88b·d88P"88b·····
+%  ········888···d888888·888··888·888··Y8P··888·888·888··888·888··888·····
+%  ········888··888··888·888··888·888···"···888·888·888··888·Y88b·888·····
+%  ········888··"Y888888·888··888·888·······888·888·888··888··"Y88888·····
+%  ·······························································888·····
+%  ··························································Y8b·d88P·····
+%  ···························································"Y88P"······
+%  =======================================================================
+% 
+%  -----------------------------------------------------------------------
+% Author       : 焱铭
+% Date         : 2024-04-17 20:49:49 +0800
+% LastEditTime : 2025-10-26 15:42:27 +0800
+% Github       : https://github.com/YanMing-lxb/
+% FilePath     : /GUET_Thesis_LaTeX/Chapters/Chapter1.tex
+% Description  : 
+%  -----------------------------------------------------------------------
+%
+
+% !Mode:: "TeX:UTF-8"
+%此为第一章节。
+%[h]为hear代码所在位置，\caption为表注题注，\cref{}引用图表公式章节等，\cite为引用参考文献，\subfloat子图，\label标签，\begin{figure}图片环境，\begin{table}表格环境，\begin{equation}公式环境，\toprule三线表顶线，\cmidrule三线表中线，\bottomrule三线表底线，\begin{theorem}定理，\begin{proof}证明，\begin{corollary}推论，\begin{lemma}引理
+    
+\chapter{关于模板的说明}\label{ch:1}
+
+
+\section{如何看本文档}
+本文档简单介绍了模板的一些基础使用方法，在阅读本文档时，应当将代码与PDF文档对照来看，了解各个代码所对应的实现效果。
+
+\section{环境配置与模板参数说明}
+请详细阅读本项目根目录下的README.md 文档
+
+\section{节标题示例}
+
+\subsection{小节标题}
+
+\subsubsection{小小节标题}
+
+\section{参考文献插入示例}
+
+    \LaTeX 插入参考文献只需在 \verb|\cite{}| 中输入文献的key即可，如：示例\cite{Lau_2022}。如需插入多个参考文献只需用英文逗号分隔即可，\LaTeX 会自动进行排序整理文献，如：示例\cite{Sadique.Murtaza.ea_2022, Tan.Du.ea_2021, Lau_2022}
+
+    如需参考文献引用样式为平标（非上标样式）只需：\verb|\parencite{}| 中输入文献的key即可，如：示例\parencite{Lau_2022}。如需插入多个参考文献只需用英文逗号分隔即可，\LaTeX 会自动进行排序整理文献，如：示例\parencite{Sadique.Murtaza.ea_2022, Tan.Du.ea_2021, Lau_2022}
+
+    网络资源示例\cite{中华人民共和国公安部_2501}
+    
+\section{列表示例}
+
+\subsection{纯数字编号}
+\begin{enumerate}
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+\end{enumerate}
+
+\subsection{罗马编号}
+\begin{enumerate}[label=(\roman*)]
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+\end{enumerate}
+
+\subsection{括号编号}
+\begin{enumerate}[label=(\arabic*)]
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+\end{enumerate}
+
+\subsection{半括号编号}
+\begin{enumerate}[label=\arabic*)]
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+\end{enumerate}
+
+\subsection{小字母编号}
+\begin{enumerate}[label=\alph*)]
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+ \item XXXXXXXXXX
+\end{enumerate}
+
+\subsection{自定义编号}
+\begin{enumerate}[leftmargin = 6em, labelsep = 0em]
+    \item[步骤一、] XXXXXXXXXX;
+    \item[步骤二、] XXXXXXXXXX；
+    \item[步骤三、] XXXXXXXXXX；
+\end{enumerate}
+
+\subsection{无缩进列表}
+无缩进列表名为 nienumerate ，意为 noindent enumerate
+\begin{nienumerate}
+    \item 题目：题目是以最恰当、最简明的词语反映论文中最重要的特定内容的逻辑组合，力求简短切题。中文题目（包括副标题和标点符号）一般不超过20个字，英文题目一般不超过10个实词。
+    \item 责任者姓名：包括研究生学号、研究生姓名、指导教师姓名及职称。
+    \item 申请学位门类（学硕）：按照学科门类和学位层次填写，如工学博士、工学硕士、管理学硕士、经济学硕士等。
+    \item 申请学位类别（专硕）：按照不同类别分别填写，如工程硕士、法律硕士、翻译硕士、工商管理硕士、会计硕士、艺术硕士。
+    \item 领域（专硕）：工程硕士、法律硕士、翻译硕士需填写领域，其他几个学位类别无领域，将该行直接删掉。
+    \item 论文答辩日期：按照实际答辩日期填写。
+\end{nienumerate}
+
+\section{本论文的结构安排}
+\cref{ch:1}：绪论。本章主要进行整体说明。
+
+\cref{ch:2}：图片示例。
+
+\cref{ch:3}：表格示例。
+
+\cref{ch:4}：数学公式示例。
+
+\cref{ch:5}：列表、算法、定理、证明插入示例。
+
+\cref{ch:6}：全文总结与展望。本次研究工作进行总结，并根据全文研究过程中……。
+
+
