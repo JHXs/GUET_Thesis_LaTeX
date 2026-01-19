@@ -1,3 +1,6 @@
+## Build files:
+Build/
+
 ## font fille:
 *.ttf
 ## Core latex/pdflatex auxiliary files:
@@ -23,7 +26,7 @@
 # *.ps
 # *.eps
 # *.pdf
-.vscode/
+# .vscode/
 
 ## Generated if empty string is given at "Please type another file name for output:"
 #.pdf
