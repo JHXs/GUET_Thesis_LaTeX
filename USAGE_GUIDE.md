@@ -69,3 +69,60 @@
 - **子图**: 使用 `\subfloat` 命令。
 
 详情请参考 [Chapter1.tex](file:///home/hansel/Documents/ITProject/GUET_Thesis_LaTeX/Chapters/Chapter1.tex) 中的示例代码。
+
+## 编译指南
+
+### 环境配置
+1. ArchLinux
+
+```shell
+sudo pacman -S texlive texlive-lang biber
+```
+
+2. Fedora
+
+```shell
+sudo dnf install texlive-scheme-full
+```
+
+### 1. 使用 latexmk 指定输出目录
+
+```shell
+# 指定输出到 ./out 目录
+latexmk -xelatex -outdir=out main.tex
+```
+
+### 2. 使用手动编译指定输出目录
+
+```shell
+# 第一步：首次编译（生成辅助文件）
+xelatex -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=out main.tex
+
+# 第二步：处理参考文献（如果使用 biber）
+biber out/main
+
+# 第三步：再次编译
+xelatex -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=out main.tex
+
+# 第四步：最后编译（确保引用正确）
+xelatex -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=out main.tex
+```
+> 编译说明
+```
+1. 第一次编译
+生成辅助文件（.aux, .toc, .lof, .lot 等）
+记录交叉引用信息（哪些章节、图表、公式被引用了）
+但此时引用还是 ??（因为引用信息还没生成）
+2. 处理参考文献
+读取 main.bcf 文件（包含文献引用信息）
+从 References.bib 中提取对应的文献条目
+生成 main.bbl 文件（格式化后的文献列表）
+3. 第二次编译
+读取新生成的 main.bbl，在文档中插入文献引用
+此时引用已替换为数字（如 [1]）
+但页码可能还是错的（比如引用"见第 \pageref{sec:intro} 页"）
+4. 第三次编译（最后一步）
+使用正确的页码更新所有交叉引用
+确保目录（TOC）、图表目录（LOF/LOT）正确
+所有引用都最终稳定
+```

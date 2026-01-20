@@ -82,9 +82,9 @@
   "latex-workshop.intellisense.package.enabled": true,
 
   // 【界面】:详细的报错
- "latex-workshop.message.error.show": true,
-"latex-workshop.message.warning.show": true,
-"latex-workshop.message.information.show": true,
+  "latex-workshop.message.error.show": true,
+  "latex-workshop.message.warning.show": true,
+  "latex-workshop.message.information.show": true,
 
   // ===================================================================
   // 二、 输出与构建策略
@@ -155,10 +155,12 @@
   // 其他的是常见的版本控制、依赖和历史记录目录。
   "latex-workshop.latex.search.rootFiles.exclude": [
     "**/.git/**",
+    "**/.github/**",
     "**/node_modules/**",
     "**/.history/**",
     "**/.vscode/**",
-    "out/**"
+    "out/**",
+    "Build/**"
   ],
 
 
@@ -172,7 +174,7 @@
   // %DIR%：主 .tex 所在目录 (绝对路径)
   // %DOC%：主 .tex 的完整路径 (不含 .tex 扩展名)
   // %DOCFILE%：主 .tex 的文件名 (不含 .tex 扩展名)
-  // %OUTDIR%：上面 "latex-workshop.latex.outDir" 定义的输出目录 (例如 %DIR%/out)
+  // %OUTDIR%：上面 "latex-workshop.latex.outDir" 定义的输出目录 (例如 %DIR%/Build)
   "latex-workshop.latex.tools": [
     // ---- 1. latexmk (推荐的构建方式) ----
     // latexmk 是一个 Perl 脚本，它能自动处理编译所需的一切：
@@ -187,7 +189,7 @@
         "-interaction=nonstopmode",   // 编译出错时不要停下（而是继续尝试编译），这在自动构建时(onFileChange)尤其重要
         "-file-line-error",           // 在日志中输出 "file:line:error" 格式，方便 VS Code 解析并跳转到错误
         "-xelatex",                   // 指定后端引擎为 xelatex
-        "-outdir=%OUTDIR%",           // 【关键】告诉 latexmk 将 *所有* 输出文件（.pdf, .log, .aux...）都放入 out 目录
+        "-outdir=%OUTDIR%",           // 【关键】告诉 latexmk 将 *所有* 输出文件（.pdf, .log, .aux...）都放入 %OUTDIR% 目录
         "%DOC%"                       // 要编译的主文档（无扩展名）
       ]
     },
@@ -277,9 +279,9 @@
 
     // ---- 3. 辅助工具 (文献/索引/术语) ----
     // 这是使用 `outDir` 时 *必须* 的设置！
-    // 因为 xelatex/pdflatex 把 .aux, .glo, .idx 等辅助文件生成在了 %OUTDIR% (即 out 目录) 中。
+    // 因为 xelatex/pdflatex 把 .aux, .glo, .idx 等辅助文件生成在了 %OUTDIR% (即 Build 目录) 中。
     // 我们必须在 "args" 中明确告诉 biber/bibtex/makeglossaries 
-    // 去 out 目录中查找辅助文件，否则它们在根目录将找不到。
+    // 去 %OUTDIR% 目录中查找辅助文件，否则它们在根目录将找不到。
     {
       "name": "biber",       // 用于 BibLaTeX
       "command": "biber",
@@ -489,11 +491,11 @@
   // ===================================================================
   // 六、 自动清理（Clean）
   // ===================================================================
-  // 本区域设置如何清理因 `outDir` 而产生在 `out` 目录中的编译中间文件。
+  // 本区域设置如何清理因 `outDir` 而产生在 `Build` 目录中的编译中间文件。
 
   // 【清理】: 自动清理时机
   // "onBuilt": 推荐。每次 *成功* 编译后，自动清理中间文件（.log, .aux 等）。
-  //            这能确保 `out` 目录始终只包含最新的 .pdf 和 .synctex.gz。
+  //            这能确保 `Build` 目录始终只包含最新的 .pdf 和 .synctex.gz。
   // "onFailed": 编译失败时才清理。
   // "never": 从不自动清理，需要手动执行 "Clean up auxiliary files" 命令。
   "latex-workshop.latex.autoClean.run": "onBuilt",
@@ -506,7 +508,7 @@
   // 【清理】: 要清理的文件类型（Glob 模式）
   // 这是一个非常全面的清理列表，覆盖了 LaTeX、BibTeX/Biber、MakeIndex、
   // Glossaries、Beamer 等生成的几乎所有中间文件。
-  // 注意：这里的文件路径是相对于 `outDir` (即 `out` 目录) 的。
+  // 注意：这里的文件路径是相对于 `outDir` (即 `Build` 目录) 的。
   "latex-workshop.latex.clean.fileTypes": [
     // LaTeX 基础
     "*.aux",      // 辅助文件（交叉引用）
@@ -621,7 +623,7 @@
   "latex-workshop.texcount.args": [
     "-merge",   // 合并所有被 `\include` 或 `\input` 的子文件
     "-inc",     // 允许 `\include` 和 `\input`
-   "-total",   // 仅显示总数（否则会显示详细分类）
+    "-total",   // 仅显示总数（否则会显示详细分类）
     // **处理中文文档时，强烈建议添加以下参数：**
     "-ch",      // 启用中文字符统计 (texcount v3.0+)，这对中文用户至关重要
     "-utf8"     // 明确指定 UTF-8 编码，确保中文字符正确计数
