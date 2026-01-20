@@ -221,6 +221,7 @@
 	gbalign=center,                     		% 标签中括号对齐
 	gbannote=true,                      		% 显示 annote 域，使得完成对于 thesisauthor 和 corresponding 的显示
 ]{biblatex}
+% \newcounter{gbrefcompress}						% 定义参考文献压缩计数器，已在gb7714-2015.cbx中定义
 \setcounter{gbrefcompress}{3}					% 设置参考文献压缩的阈值，修改从三篇文献开始压缩
 % \DefineBibliographyStrings{english}{in={}} % 去掉英文in，避免会议中的in:出现，这行是不需要的，不使用 gbpunctin 或注释即可
 
@@ -304,10 +305,10 @@
 		\setmainfont{Times New Roman}                               % 设置英文字体为Times New Roman
 	\else
         % 在其他平台设置中文和英文字体
-		\newcommand{ \SetCJKfont } [2] {
-			\IfFileExists { ./Fonts/#2 } 
-				{ #1 [ \AutoFakeCJKOptions, Path=./Fonts/ ] { #2 } }
-				{ \ClassError { 字体缺失 } { 请下载 #2 并放置于 ./Fonts/ 目录，或运行脚本下载 } }
+		\newcommand{\SetCJKfont}[2]{
+			\IfFileExists{./Fonts/#2}
+				{#1[\AutoFakeCJKOptions, Path=./Fonts/]{#2}}
+				{\ClassError{字体缺失}{请下载 #2 并放置于 ./Fonts/ 目录，或运行脚本下载}}
 		}
         \SetCJKfont{\setCJKmainfont}{FZ-ShuSong.ttf}  				% 设置中文主字体
 		\SetCJKfont{\setCJKmonofont}{FZ-ShuSong.ttf}  				% 使用宋体作为等宽字体
