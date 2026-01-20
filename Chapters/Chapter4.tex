@@ -25,60 +25,50 @@
 
 % !Mode:: "TeX:UTF-8"
 
-\chapter{数学公式示例}\label{ch:4}
+\chapter{实验结果与分析}\label{ch:4}
 
 本章在\cref{ch:3}完成基……。
 
-\section{公式示例}
-在本次研究中应用到计算流体动力学（Computational Fluid Dynamics，CFD）对研究对象进……。
+写作目标：用数据说话，证明你的模型比别人的好（SOTA）。
+
+\section{数据集介绍与预处理（来源、统计特征、划分方式）}
+比如 UCI 数据集、中国空气质量在线监测平台数据。列出时间跨度、采样频率。
 
 
-\subsection{普通带序号公式}
-\begin{equation}
-    \frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial v}{\partial z}=0
-\end{equation}
-u，v，w 分别是 x，y，z 方向的速度分量。
+\subsection{数据集来源与统计特征}
+[核心图表] 贴热力图（展示空间相关性）、贴时序折线图（展示季节性/周期性）。
 
 
-\subsection{需要对齐的多个带序号的公式}
-
-\& 号为对其对齐标记最好放置在计算符号之前，如=、+、-之前；
-
-\verb|\\| 表示换行。
-
-\begin{align}% 式中的&为对齐的位置标记
-    u & \frac{\partial u}{\partial x}+v \frac{\partial u}{\partial y}+w \frac{\partial u}{\partial z}=-\frac{1}{\rho_{f}} \frac{\partial p}{\partial x}+\frac{\mu_{f}}{\rho_{f}}\left(\frac{\partial^{2} u}{\partial x^{2}}+\frac{\partial^{2} u}{\partial y^{2}}+\frac{\partial^{2} u}{\partial z^{2}}\right) \\
-    u & \frac{\partial v}{\partial x}+v \frac{\partial v}{\partial y}+w \frac{\partial v}{\partial z}=-\frac{1}{\rho_{f}} \frac{\partial p}{\partial y}+\frac{\mu_{f}}{\rho_{f}}\left(\frac{\partial^{2} v}{\partial x^{2}}+\frac{\partial^{2} v}{\partial y^{3}}+\frac{\partial^{2} v}{\partial z^{3}}\right) \\
-    u & \frac{\partial w}{\partial x}+v \frac{\partial w}{\partial y}+w \frac{\partial w}{\partial z}=-\frac{1}{\rho_{f}} \frac{\partial p}{\partial z}+\frac{\mu_{f}}{\rho_{f}}\left(\frac{\partial^{2} w}{\partial x^{2}}+\frac{\partial^{2} w}{\partial y^{2}}+\frac{\partial^{2} w}{\partial z^{2}}\right)
-\end{align}
-$\rho_{f}$ 和 $\mu_{f}$ 分别是冷却剂的密度和动态粘度，p 是冷却剂压力。
+\subsection{数据的时空相关性分析（EDA，探索性数据分析）}
 
 
-\subsection{需要换行对齐的长公式}
+\subsection{数据预处理（归一化、去噪等）}
 
-\begin{equation}\label{eq:P}
-    \begin{split}
-        f^{\prime} & = 6.272 + 3.02 A + 6.08 B + 0.0368 C - 0.8848 D  \\
-            & + 0.04381 D^2 + 6.35 AB - 0.3602 AD - 0.5497 BD
-    \end{split}
-\end{equation}
+\section{评价指标}
 
-\subsection{其他公式示例}
-\begin{equation}
-    \begin{aligned}
-    \left\{
-        \begin{array}{l}
-        \text {find}\enspace H_{rib},H_{rib},N_{pf},N_{ac} \\
-        \text {min} \enspace F(H_{rib},H_{rib},N_{pf},N_{ac})= min\{f_1,f_2,f_3\} \\
+列出公式：MAE, RMSE, MAPE, R2
 
-            \text{s.t.\enspace}\enspace 0.2 \leqslant H_{rib} \leqslant 0.8    \\
-            \hspace{2.2em} 0.2 \leqslant H_{pf} \leqslant 0.8                     \\
-            \hspace{2.2em} 6 \leqslant N_{pf} \leqslant 22,\ N_{pf}\in \mathbb{O} \\
-            \hspace{2.2em} 0 \leqslant N_{ac} \leqslant 16,\ N_{ac}\in \mathbb{E}
-        \end{array}
-    \right. 
-    \end{aligned}
-    \label{eq:MO}
-\end{equation}
+\section{对比模型与实验环境设置}
+
+基线模型：LSTM, GRU, LSTNet, Transformer, Informer, PatchTST（原版）。
+环境：Python 版本, PyTorch 版本, 显卡型号（如 RTX 3090）。
+
+\section{ 模型对比实验分析（总体性能表）}
+
+[核心图表] 一个大表格，横向是模型，纵向是指标。你的模型数据要加粗表示最优。
+文字分析：为什么你的比 LSTM 好？（有 Attention）；为什么比 Informer 好？（因为有 Patching 和空间聚合）。
+
+\section{不同预测步长的性能分析}
+
+对比预测未来 1h, 6h, 12h, 24h 的误差。画柱状图或折线图。
+
+结论：证明模型在长短期预测上都稳定。
+
+\section{消融实验}
+设计变体：① 去掉空间聚合模块；② 去掉 Patching 机制；③ 去掉通道独立。
+
+结论：证明每个模块都是有用的，缺一不可。
+
+\section{参数敏感性分析（如 Patch Size, Look-back Window 长度影响）}
 
 \section{本章小节}
