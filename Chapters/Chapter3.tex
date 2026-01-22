@@ -31,7 +31,6 @@ https://www.latex-tables.com/
 \end{table}
 
 \begin{table}[htbp]
-    \centering
     \caption{三线表示例(tabularray自定义环境)}
     \begin{threetab}{
         colspec = {cc}, 
@@ -44,24 +43,22 @@ https://www.latex-tables.com/
     \end{threetab}
 \end{table}
 
-\begin{table}[!htbp]
-    \caption[表格复杂定义示例]{复杂定义示例(提供脚注)}
-    \begin{threeparttable}
-        \begin{tabular}{*{3}{p{3.3cm}<{\centering}}}
-            \hline
-            方案 & 参数1 & 参数2\\ \hline
-            xxx et al.~\cite{Lau_2022} & $2n\times$SS & — \\ 
-            YYY~\cite{Lau_2022} & $n\times$SS$+5n\times$P & $n\times$BP \\
-            ZZZ~\cite{Lau_2022} & $2n\times$SS$+n\times$P & $n\times$BP$+n\times$SS \\
-            本章方案\textsuperscript{1} & $n\times$SS & $n\times$P \\ \hline
-        \end{tabular}
-        \begin{tablenotes}
-            \footnotesize
-            \item[1] 服务器发起的最后一个操作被视为聚合部分
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}
 
+\begin{center}
+    \begin{talltblr}[
+        caption = {复杂定义示例(提供脚注)},
+        entry = {复杂定义示例},
+        note{1} = {服务器发起的最后一个操作被视为聚合部分},
+        ]{
+        colspec = {Q[3.3cm,c] Q[3.3cm,c] Q[3.3cm,c]},
+        }
+        方案 & 参数1 & 参数2 \\
+        xxx et al.~\cite{Lau_2022} & $2n\times$SS & — \\ 
+        YYY~\cite{Lau_2022} & $n\times$SS$+5n\times$P & $n\times$BP \\
+        ZZZ~\cite{Lau_2022} & $2n\times$SS$+n\times$P & $n\times$BP$+n\times$SS \\
+        本章方案\TblrNote{1} & $n\times$SS & $n\times$P \\
+    \end{talltblr}
+\end{center}
 
 \section{子表排版示例}
 \begin{table}[htb]
@@ -94,24 +91,19 @@ https://www.latex-tables.com/
 
 \section{跨页表格示例}
 
-\begin{longtable}{@{\extracolsep{\fill}}cccccc@{}}  \\ % @{\extracolsep{\fill}}cccccc@{}命令表格整体宽度为页面宽
-    \caption{RSM仿真实验规划表}
-    \label{tab:Experimental-Planning}  \\
-    \toprule
-    标准序 & 运行序 & $H_{rib}\ \mathrm{(mm)}$ & $H_{pf}\ \mathrm{(mm)}$ & $N_{pf}$ & $N_{ac}$ \\ \midrule
-    \endfirsthead
-    %
-    \multicolumn{6}{c}%
-    {{表 \thetable\ RSM仿真实验规划表 (续)}} \\
-    \toprule
-    标准序 & 运行序 & $H_{rib}\ \mathrm{(mm)}$ & $H_{pf}\ \mathrm{(mm)}$ & $N_{pf}$ & $N_{ac}$ \\ \midrule
-    \endhead
-    %
-    \bottomrule
-    \endfoot
-    %
-    \endlastfoot
-    %
+\begin{longtblr}[
+    caption = {RSM仿真实验规划表},
+    label = {tab:Experimental-Planning},
+    entry = {RSM仿真实验规划表},
+    ]{
+        colspec = {Q[c]Q[c]Q[c]Q[c]Q[c]Q[c]},
+        leftsep=1pt, % 设置左外侧边距
+        rightsep=1pt, % 设置右外侧边距
+        rowsep=0pt, % 设置行间距
+        colsep=16pt, % 设置每列宽度
+        rowhead = 1,
+    }
+    标准序 & 运行序 & {$H_{rib}\ \mathrm{(mm)}$} & {$H_{pf}\ \mathrm{(mm)}$} & {$N_{pf}$} & {$N_{ac}$} \\
     11  & 1   & 0.16            & 0.8            & 6        & 16       \\
     13  & 2   & 0.16            & 0.16           & 22       & 16       \\
     15  & 3   & 0.16            & 0.8            & 22       & 16       \\
@@ -141,5 +133,5 @@ https://www.latex-tables.com/
     26  & 27  & 0.48            & 0.48           & 22       & 8        \\
     27  & 28  & 0.48            & 0.48           & 14       & 0        \\
     21  & 29  & 0.16            & 0.48           & 14       & 8        \\
-    24  & 30  & 0.48            & 0.8            & 14       & 8        \\ \bottomrule
-\end{longtable}
+    24  & 30  & 0.48            & 0.8            & 14       & 8        \\
+\end{longtblr}
