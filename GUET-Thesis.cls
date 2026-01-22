@@ -19,7 +19,7 @@
 %  -----------------------------------------------------------------------
 % Author       : 焱铭
 % Date         : 2025-02-24 22:56:46 +0800
-% LastEditTime : 2026-01-22 16:28:18 +0800
+% LastEditTime : 2026-01-23 01:16:09 +0800
 % Github       : https://github.com/YanMing-lxb/
 % FilePath     : /GUET_Thesis_LaTeX/GUET-Thesis.cls
 % Description  : 桂林电子科技大学学位论文模板
@@ -1695,7 +1695,21 @@
 		\normalsize  % 设置字体为小四
 		\input{Chapters/Accomplish-bversion.tex} % 学术成果文档位置
 	}{ % 非盲审版学术成果👇
-		
+
+		% 定义一个可复用的命令来设置名字格式
+		\newcommand{\setupFamilyGivenFormat}{%
+			% 局部重新定义名字格式
+			\DeclareNameFormat{family-given}{%
+				\usebibmacro{name:family-given}
+				{\namepartfamily}
+				{\namepartgiven}
+				{\namepartsuffix}
+				{\namepartprefix}%
+			}%
+			\renewcommand*{\revsdnamepunct}{\space}   % 将姓和名之间的分隔符换成空格
+			\DeclareNameAlias{default}{family-given}  % 姓在前，全名
+		}
+
 		\defbibfilter{PublishPaper}{
 			type=article
 			or type=inproceedings
@@ -1725,7 +1739,7 @@
 			\nocite{*}
 			\def\blx@maxbibnames{5}                                                            % 局部调整作者数量
 			\settoggle{bbx:gbannote}{true}
-			\DeclareNameAlias{sortname}{family-given}                                          % 添加此行代码
+			\setupFamilyGivenFormat                               
 			\begin{Achbox}
 				\printbibliography[heading=AchHeadStyle,type=inproceedings,title=发表会议论文：]
 			\end{Achbox}
@@ -1734,6 +1748,7 @@
 			\nocite{*}
 			\def\blx@maxbibnames{5}                                                            % 局部调整作者数量，控制显示个数
 			\settoggle{bbx:gbannote}{true}
+			\setupFamilyGivenFormat
 			\begin{Achbox}
 				\printbibliography[heading=AchHeadStyle,type=article,title=发表期刊论文：]
 			\end{Achbox}
@@ -1742,6 +1757,7 @@
 			\nocite{*}
 			\def\blx@maxbibnames{5}
 			\settoggle{bbx:gbannote}{true}
+			\setupFamilyGivenFormat
 			\begin{Achbox}
 				\printbibliography[heading=AchHeadStyle,type=patent,title=发明专利：]
 			\end{Achbox}
@@ -1749,6 +1765,7 @@
 		\begin{refsection}[\AchResource]
 			\nocite{*}
 			\settoggle{bbx:gbannote}{true}
+			\setupFamilyGivenFormat
 			\begin{Achbox}
 				\printbibliography[heading=AchHeadStyle,type=software,title=软件著作权：]
 			\end{Achbox}
@@ -1757,6 +1774,7 @@
 			\nocite{*}
 			\settoggle{bbx:gbtype}{false}
 			\settoggle{bbx:gbannote}{true}
+			\setupFamilyGivenFormat
 			\begin{Achbox}
 				\printbibliography[heading=AchHeadStyle,type=misc,title=科研竞赛获奖：]
 			\end{Achbox}
