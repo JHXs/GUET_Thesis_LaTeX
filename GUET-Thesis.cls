@@ -19,14 +19,15 @@
 %  -----------------------------------------------------------------------
 % Author       : 焱铭
 % Date         : 2025-02-24 22:56:46 +0800
-% LastEditTime : 2026-01-22 16:14:41 +0800
+% LastEditTime : 2026-01-22 16:28:18 +0800
 % Github       : https://github.com/YanMing-lxb/
 % FilePath     : /GUET_Thesis_LaTeX/GUET-Thesis.cls
 % Description  : 桂林电子科技大学学位论文模板
 %  -----------------------------------------------------------------------
 %
+\newcommand{\Version}{v2.12.3}
 
-\ProvidesClass{GUET-Thesis}[2026/01/22 v2.12.3 桂林电子科技大学学位论文模板 --焱铭]
+\ProvidesClass{GUET-Thesis}[2026/01/22 \Version 桂林电子科技大学学位论文模板 --焱铭]
 
 \LoadClass[												% 加载文档类并设置选项
 	12pt,                                   		    % 字号为12pt
