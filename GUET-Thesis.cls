@@ -19,14 +19,14 @@
 %  -----------------------------------------------------------------------
 % Author       : 焱铭
 % Date         : 2025-02-24 22:56:46 +0800
-% LastEditTime : 2025-10-26 17:50:13 +0800
+% LastEditTime : 2026-01-22 16:14:41 +0800
 % Github       : https://github.com/YanMing-lxb/
 % FilePath     : /GUET_Thesis_LaTeX/GUET-Thesis.cls
 % Description  : 桂林电子科技大学学位论文模板
 %  -----------------------------------------------------------------------
 %
 
-\ProvidesClass{GUET-Thesis}[2025/10/26 v2.12.2 桂林电子科技大学学位论文模板 --焱铭]
+\ProvidesClass{GUET-Thesis}[2026/01/22 v2.12.3 桂林电子科技大学学位论文模板 --焱铭]
 
 \LoadClass[												% 加载文档类并设置选项
 	12pt,                                   		    % 字号为12pt
@@ -73,9 +73,7 @@
 \RequirePackage{array}                               	% 用于增强表格的功能和格式
 \RequirePackage{tabularray}                          	% 提供更灵活和功能强大的表格环境
 \RequirePackage{booktabs}                            	% 用于生成漂亮的三线表格样式
-\RequirePackage{longtable}                           	% 提供了一个可分页的长表格环境，用于跨页显示表格内容
 \RequirePackage{multirow}                            	% 允许在表格中合并多行
-\RequirePackage{threeparttable}                      	% 用于在表格中添加脚注
 
 % ===============盒子相关宏包=============== 
 \RequirePackage[most]{tcolorbox}                     	% 加载 tcolorbox 宏包，并使用 most 库
@@ -119,7 +117,7 @@
 
 % ===============符号说明相关宏=============== 
 \RequirePackage{multicol}                             	% 提供多栏环境
-\RequirePackage[intoc]{nomencl}                       	% 用于生成符号说明 参数 intoc 表示将符号说明加入目录
+\RequirePackage[intoc, notocbasic]{nomencl}             % 用于生成符号说明 参数 intoc 表示将符号说明加入目录, 参数 notocbasic 表示禁用 tocbasic 宏包避免报错
 
 % ===============字体相关宏包===============
 \RequirePackage{xeCJK}                                	% 用于设置全局的中日韩文字体
@@ -1291,7 +1289,6 @@
 \captionsetup[table]{aboveskip=0pt, belowskip=6pt}      % 设置 table 环境
 \captionsetup[figure]{aboveskip=3pt, belowskip=0pt}     % 设置 figure 环境
 \captionsetup[subfoat]{aboveskip=2pt, belowskip=2pt}    % 设置 subfoat 环境
-\captionsetup[longtable]{aboveskip=0pt, belowskip=6pt}  % 设置 longtable 环境
 \captionsetup[subfigure]{aboveskip=2pt, belowskip=2pt}  % 设置 subfigure 环境
 \captionsetup[subtable]{aboveskip=2pt, belowskip=2pt}   % 设置 subtable 环境
 % 设置标题与插图或表格之间的垂直距离，子图环境可加 width=36pt 设置子图标题的宽度 
@@ -1381,7 +1378,6 @@
 \AtBeginEnvironment{table}{\small}  						 % 表格字体小五
 \AtBeginEnvironment{tabular}{\small}                         % 表格字体小五
 \AtBeginEnvironment{tabular*}{\small}                        % 表格字体小五
-\AtBeginEnvironment{longtable}{\small}                       % 跨页表格字体小五
 
 
 % ===============图表浮动体设置===============
@@ -1396,6 +1392,9 @@
 \setlength{\cmidrulewidth}{0.5pt}                 % 设置booktab宏包中 \cmidrule 的粗细
 \setlength{\extrarowheight}{2pt}                  % 设置表格中每一行的额外高度 array 宏包
 
+% =============== tabularray设置===============
+\SetTblrStyle{caption}{font=\small} % 设置标签和标题文本字体大小为small体
+\SetTblrStyle{note}{font=\footnotesize} % 设置表格脚注字体大小为footnotesize
 
 % =============== 自定义三线表格式 ===============
 \NewTblrEnviron{threetab}  % 自定义三线表环境 threetab
@@ -1405,12 +1404,29 @@
 		row{1} = {font=\small\bfseries}, % 表头加粗
 		row{2-Z} = {font=\small\selectfont} % 设置表中所有文字大小为 \small，\selectfont显式声明字体切换
 	}
+% =============== 自定义跨页表格式 ===============
+\DeclareTblrTemplate{contfoot-text}{default}{续下页} % 设置 longtable 跨页表格续页脚注文字
+\DeclareTblrTemplate{conthead-text}{default}{（续）}
+\SetTblrStyle{contfoot}{font=\footnotesize}
+
+\SetTblrInner[longtblr]{
+		hline{1,Z} = {-}{0.9pt}, % 设置头线和尾线为1.5pt
+		hline{2} = {-}{0.5pt},   % 设置中线 0.5pt
+		row{1} = {font=\small\bfseries}, % 表头加粗
+		row{2-Z} = {font=\small\selectfont} % 设置表中所有文字大小为 \small，\selectfont显式声明字体切换
+	}
+
+% =============== 自定义脚注表格格式 ===============
+\SetTblrInner[talltblr]{
+		hline{1,Z} = {-}{0.9pt}, % 设置头线和尾线为1.5pt
+		hline{2} = {-}{0.5pt},   % 设置中线 0.5pt
+		row{1} = {font=\small\bfseries}, % 表头加粗
+		row{2-Z} = {font=\small\selectfont} % 设置表中所有文字大小为 \small，\selectfont显式声明字体切换
+	}
 
 % =============== 自定义列表环境 ===============
 \newlist{nienumerate}{enumerate}{1} % 定义新的列表环境，名为 nienumerate 意为 noindent enumerate
 \setlist[nienumerate]{label=（\arabic*）,leftmargin=0pt,itemindent=4.5em,labelsep=0pt} % 设置列表样式
-
-
 
 % //////////////////////////////////////// enumitem环境设置 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
