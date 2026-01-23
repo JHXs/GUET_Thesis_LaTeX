@@ -221,7 +221,9 @@
 	gbalign=center,                     		% 标签中括号对齐
 	gbannote=true,                      		% 显示 annote 域，使得完成对于 thesisauthor 和 corresponding 的显示
 ]{biblatex}
-% \newcounter{gbrefcompress}						% 定义参考文献压缩计数器，已在gb7714-2015.cbx中定义
+\@ifundefined{c@gbrefcompress}{%
+	\newcounter{gbrefcompress}%						% 定义参考文献压缩计数器
+}{}
 \setcounter{gbrefcompress}{3}					% 设置参考文献压缩的阈值，修改从三篇文献开始压缩
 % \DefineBibliographyStrings{english}{in={}} % 去掉英文in，避免会议中的in:出现，这行是不需要的，不使用 gbpunctin 或注释即可
 
