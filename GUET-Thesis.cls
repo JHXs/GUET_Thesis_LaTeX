@@ -19,15 +19,15 @@
 %  -----------------------------------------------------------------------
 % Author       : 焱铭
 % Date         : 2025-02-24 22:56:46 +0800
-% LastEditTime : 2026-01-23 01:16:09 +0800
+% LastEditTime : 2026-04-15 22:06:37 +0800
 % Github       : https://github.com/YanMing-lxb/
 % FilePath     : /GUET_Thesis_LaTeX/GUET-Thesis.cls
 % Description  : 桂林电子科技大学学位论文模板
 %  -----------------------------------------------------------------------
 %
-\newcommand{\Version}{v2.12.3}
+\newcommand{\Version}{v2.12.4} % 模板版本号，更新请修改此处
 
-\ProvidesClass{GUET-Thesis}[2026/01/22 \Version 桂林电子科技大学学位论文模板 --焱铭]
+\ProvidesClass{GUET-Thesis}[2026/04/15 \Version 桂林电子科技大学学位论文模板 --焱铭]
 
 \LoadClass[												% 加载文档类并设置选项
 	12pt,                                   		    % 字号为12pt
@@ -221,6 +221,7 @@
 	gbannote=true,                      		% 显示 annote 域，使得完成对于 thesisauthor 和 corresponding 的显示
 ]{biblatex}
 \setcounter{gbrefcompress}{3}					% 设置参考文献压缩的阈值，修改从三篇文献开始压缩
+\AtBeginBibliography{\nohyphenation}            % 去掉英文参考文献中由于换行产生的连字符，真是讨厌一些没事找事的老师，只会在没用的地方挑毛病
 % \DefineBibliographyStrings{english}{in={}} % 去掉英文in，避免会议中的in:出现，这行是不需要的，不使用 gbpunctin 或注释即可
 
 % ===============条件判断宏包宏包===============
