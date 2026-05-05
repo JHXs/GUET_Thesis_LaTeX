@@ -18,7 +18,7 @@ $pdf_mode = 5;
 # 2: 有必要更新bbl文件时，运行 bibtex 或 biber，无需测试 bib 文件存在与否；清空删除 bbl
 $bibtex_use = 1.5;
 # 设置 latex 文件输出的目录
-# $out_dir = "Build";
+$out_dir = "Build";
 
 # 设置预览模式，相当于 -pv 选项，在编译结束会开启预览
 $preview_mode = 0; # 0不开启，1开启，由于使用latex workshop因此选为0
